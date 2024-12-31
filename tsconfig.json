@@ -1,0 +1,33 @@
+{
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "target": "ES2022",
+    "allowJs": true,
+    "resolveJsonModule": true,
+    "moduleDetection": "force",
+    "isolatedModules": true,
+    "verbatimModuleSyntax": true,
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitOverride": true,
+    "moduleResolution": "NodeNext",
+    "module": "NodeNext",
+    "noEmit": true,
+    "lib": ["ES2022", "dom", "dom.iterable"],
+    "baseUrl": ".",
+    "paths": {
+      "#app/*": ["internal/app/*.js"],
+      "#config/*": ["internal/config/*.js"],
+      "#handler/*": ["internal/handler/*.js"],
+      "#model/*": ["internal/model/*.js"],
+      "#view/*": ["internal/view/*.js"],
+      "#middleware/*": ["internal/middleware/*.js"],
+      "#validator/*": ["internal/validator/*.js"],
+      "#database/*": ["internal/database/*.js"],
+      "#helper/*": ["internal/helper/*.js"]
+    }
+  },
+  "exclude": ["node_modules"]
+}

@@ -1,0 +1,17 @@
+@layout.base()
+  @slot('head')
+    <title>
+      {{ title }}
+    </title>
+
+    @if ($slots.meta)
+      {{{ await $slots.meta() }}}
+    @endif
+  @end
+  
+  @slot('body')
+    <main class="container">
+      {{{ await $slots.main() }}}
+    </main>
+  @end
+@end

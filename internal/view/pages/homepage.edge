@@ -1,0 +1,14 @@
+@let(title = "Homepage")
+
+@layout.app({ title })
+  @slot('meta')
+    <meta
+      name="description"
+      content="This is the homepage."
+    />
+  @endslot
+  
+  @slot('main')
+    <h1>Homepage</h1>
+  @endslot
+@end
