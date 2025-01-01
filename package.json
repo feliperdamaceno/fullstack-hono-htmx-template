@@ -5,19 +5,23 @@
   "main": "cmd/main.ts",
   "type": "module",
   "scripts": {
-    "dev": "tsx watch cmd/main.ts",
-    "start": "tsx cmd/main.ts"
+    "start": "tsx cmd/main.ts",
+    "build": "npm run build:css",
+    "build:css": "vite build",
+    "dev": "npm run dev:css & npm run dev:server",
+    "dev:server": "tsx watch cmd/main.ts",
+    "dev:css": "vite build --watch"
   },
   "imports": {
     "#app/*": "./internal/app/*.js",
     "#config/*": "./internal/config/*.js",
-    "#handler/*": "./internal/handler/*.js",
-    "#model/*": "./internal/model/*.js",
-    "#view/*": "./internal/view/*.js",
-    "#middleware/*": "./internal/middleware/*.js",
-    "#validator/*": "./internal/validator/*.js",
     "#database/*": "./internal/database/*.js",
-    "#helper/*": "./internal/helper/*.js"
+    "#handler/*": "./internal/handler/*.js",
+    "#helper/*": "./internal/helper/*.js",
+    "#middleware/*": "./internal/middleware/*.js",
+    "#model/*": "./internal/model/*.js",
+    "#validator/*": "./internal/validator/*.js",
+    "#view/*": "./internal/view/*.js"
   },
   "dependencies": {
     "@hono/node-server": "^1.13.7",
@@ -28,6 +32,10 @@
   },
   "devDependencies": {
     "@types/node": "^22.10.2",
-    "typescript": "^5.7.2"
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.49",
+    "sass": "^1.83.0",
+    "typescript": "^5.7.2",
+    "vite": "^6.0.6"
   }
 }
