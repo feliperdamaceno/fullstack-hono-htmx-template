@@ -26,13 +26,14 @@
     /* Aliases */
     "baseUrl": ".",
     "paths": {
-      "#app/*": ["./internal/app/*.js"],
+      "#core/*": ["./internal/core/*.js"],
       "#config/*": ["./internal/config/*.js"],
       "#database/*": ["./internal/database/*.js"],
       "#handler/*": ["./internal/handler/*.js"],
       "#helper/*": ["./internal/helper/*.js"],
       "#middleware/*": ["./internal/middleware/*.js"],
       "#model/*": ["./internal/model/*.js"],
+      "#type/*": ["internal/type/*.js"],
       "#validator/*": ["./internal/validator/*.js"],
       "#view/*": ["./internal/view/*.js"]
     }

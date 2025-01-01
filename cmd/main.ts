@@ -1,4 +1,3 @@
-import { app } from '#app/app'
+import { app } from '#core/app'
 
-app.new()
 app.start()

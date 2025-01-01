@@ -1,5 +1,5 @@
 {
-  "name": "hono-edge-template",
+  "name": "hono-template",
   "version": "1.0.0",
   "description": "",
   "main": "cmd/main.ts",
@@ -16,20 +16,20 @@
     "typecheck": "tsc --noEmit"
   },
   "imports": {
-    "#app/*": "./internal/app/*.js",
+    "#core/*": "./internal/core/*.js",
     "#config/*": "./internal/config/*.js",
     "#database/*": "./internal/database/*.js",
     "#handler/*": "./internal/handler/*.js",
     "#helper/*": "./internal/helper/*.js",
     "#middleware/*": "./internal/middleware/*.js",
     "#model/*": "./internal/model/*.js",
+    "#type/*": "./internal/types/*.js",
     "#validator/*": "./internal/validator/*.js",
     "#view/*": "./internal/view/*.js"
   },
   "dependencies": {
     "@hono/node-server": "^1.13.7",
     "dotenv": "^16.4.7",
-    "edge.js": "^6.2.0",
     "hono": "^4.6.15",
     "tsx": "^4.19.2"
   },
