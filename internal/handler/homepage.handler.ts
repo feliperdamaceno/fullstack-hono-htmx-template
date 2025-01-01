@@ -1,4 +1,5 @@
 import { Hono } from 'hono'
+
 import { app } from '#app/app'
 
 const router = new Hono()

@@ -1,14 +1,16 @@
 import type { BlankEnv, BlankSchema } from 'hono/types'
 
-import { Hono } from 'hono'
+import { resolve } from 'node:path'
+
 import { serve } from '@hono/node-server'
 import { serveStatic } from '@hono/node-server/serve-static'
 import { Edge } from 'edge.js'
-import { resolve } from 'node:path'
-
+import { Hono } from 'hono'
 import { logger } from 'hono/logger'
-import { LoadRoutes } from '#app/routes'
+
 import { NewConfig } from '#config/config'
+
+import { LoadRoutes } from '#app/routes'
 
 export type RouterInstance = Hono<BlankEnv, BlankSchema, '/'>
 

@@ -11,7 +11,7 @@ export function NewConfig(): [AppConfig, null] | [null, Error] {
 
     const config: AppConfig = {
       hostname: getEnv('HOST', 'localhost'),
-      port: Number.parseInt(getEnv('PORT', '3000'))
+      port: Number.parseInt(getEnv('PORT', '8000'))
     }
 
     return [config, null]
