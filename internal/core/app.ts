@@ -1,9 +1,8 @@
 import type { AppConfig } from '#type/config.type'
 import type { RouterInstance } from '#type/core.type'
 
-import { serve } from '@hono/node-server'
-import { serveStatic } from '@hono/node-server/serve-static'
 import { Hono } from 'hono'
+import { serveStatic } from 'hono/bun'
 import { logger } from 'hono/logger'
 import { loadRoutes } from 'internal/core/routes.js'
 import { ViewEngine } from 'internal/core/views.js'
@@ -58,16 +57,10 @@ class App {
   }
 
   /**
-   * Starts the application by initializing the server.
+   * Initialize the application by exporting the server.
    * The server will listen on the configured hostname and port.
    */
-  start() {
-    serve({
-      fetch: this.router.fetch,
-      hostname: this.#config.hostname,
-      port: this.#config.port
-    })
-
+  init() {
     console.log(
       `Server is now listening on http://${this.#config.hostname}:${this.#config.port}`
     )
@@ -83,6 +76,12 @@ class App {
       this.#stop()
       process.exit(0)
     })
+
+    return {
+      fetch: this.router.fetch,
+      hostname: this.#config.hostname,
+      port: this.#config.port
+    }
   }
 
   /**

@@ -1,3 +1,3 @@
 import { app } from '#core/app'
 
-app.start()
+export default app.init()
