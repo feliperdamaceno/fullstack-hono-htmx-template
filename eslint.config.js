@@ -10,6 +10,9 @@ export default [
     plugins: { prettier },
     rules: { 'prettier/prettier': 'error' }
   },
+  {
+    ignores: ['**/static/*']
+  },
   { languageOptions: { globals: { ...globals.browser, ...globals.node } } },
   pluginJs.configs.recommended,
   ...tseslint.configs.recommended

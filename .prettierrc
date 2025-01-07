@@ -8,7 +8,6 @@
   "arrowParens": "always",
   "proseWrap": "always",
   "importOrder": [
-    "<TYPES>^(node:)",
     "<TYPES>",
     "<TYPES>^[.]",
     "",

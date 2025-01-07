@@ -1,6 +1,6 @@
 import type { ViewComponent, ViewData } from '#type/view.type'
 
-import path from 'node:path'
+import path from 'path'
 
 /**
  * ViewEngine class handles rendering of views by dynamically importing

@@ -61,10 +61,6 @@ class App {
    * The server will listen on the configured hostname and port.
    */
   init() {
-    console.log(
-      `Server is now listening on http://${this.#config.hostname}:${this.#config.port}`
-    )
-
     process.on('SIGINT', () => {
       console.log('\nReceived SIGINT. Shutting down...')
       this.#stop()
