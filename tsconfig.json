@@ -36,7 +36,10 @@
       "#type/*": ["internal/type/*.js"],
       "#validator/*": ["./internal/validator/*.js"],
       "#view/*": ["./internal/view/*.js"]
-    }
+    },
+
+    /* Types */
+    "types": ["bun-types"]
   },
   "exclude": ["node_modules"]
 }

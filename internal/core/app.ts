@@ -29,7 +29,7 @@ class App {
     this.router.use('/static/*', serveStatic({ root: './internal/view/' }))
     this.router.use(
       '/favicon.ico',
-      serveStatic({ path: './internal/view/static/assets/favicon.ico' })
+      serveStatic({ path: './internal/view/static/favicon.ico' })
     )
 
     /**

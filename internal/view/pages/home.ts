@@ -10,12 +10,10 @@ interface Props extends ViewProps {
   }
 }
 
-const Home: ViewComponent<Props> = ({ data }) => {
-  const { title } = data
-
+const Home: ViewComponent<Props> = ({ data: { title } }) => {
   return RootLayout({
     head: html`<title>${title}</title>`,
-    main: html`
+    body: html`
       <section>
         <h1>${title}</h1>
       </section>

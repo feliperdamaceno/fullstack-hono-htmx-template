@@ -8,10 +8,6 @@
   "arrowParens": "always",
   "proseWrap": "always",
   "importOrder": [
-    "^react$",
-    "^next$",
-    "^@angular$",
-    "",
     "<TYPES>^(node:)",
     "<TYPES>",
     "<TYPES>^[.]",
@@ -32,5 +28,8 @@
   ],
   "importOrderCaseSensitive": true,
   "importOrderParserPlugins": ["typescript", "decorators-legacy"],
-  "plugins": ["@ianvs/prettier-plugin-sort-imports"]
+  "plugins": [
+    "@ianvs/prettier-plugin-sort-imports",
+    "prettier-plugin-tailwindcss"
+  ]
 }
