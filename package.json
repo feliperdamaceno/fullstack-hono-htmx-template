@@ -5,16 +5,16 @@
   "main": "cmd/main.ts",
   "type": "module",
   "imports": {
-    "#core/*": "./internal/core/*.js",
-    "#config/*": "./internal/config/*.js",
-    "#database/*": "./internal/database/*.js",
-    "#handler/*": "./internal/handler/*.js",
-    "#helper/*": "./internal/helper/*.js",
-    "#middleware/*": "./internal/middleware/*.js",
-    "#model/*": "./internal/model/*.js",
-    "#type/*": "./internal/types/*.js",
-    "#validator/*": "./internal/validator/*.js",
-    "#view/*": "./internal/view/*.js"
+    "#core/*": "./internal/core/*.ts",
+    "#config/*": "./internal/config/*.ts",
+    "#database/*": "./internal/database/*.ts",
+    "#handler/*": "./internal/handler/*.ts",
+    "#helper/*": "./internal/helper/*.ts",
+    "#middleware/*": "./internal/middleware/*.ts",
+    "#model/*": "./internal/model/*.ts",
+    "#type/*": "./internal/types/*.ts",
+    "#validator/*": "./internal/validator/*.ts",
+    "#view/*": "./internal/view/*.ts"
   },
   "scripts": {
     "start": "NODE_ENV=production bun cmd/main.ts",
@@ -23,6 +23,9 @@
     "dev": "npm run dev:static & npm run dev:server",
     "dev:server": "bun --watch cmd/main.ts",
     "dev:static": "vite build --watch",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "db:studio": "drizzle-kit studio",
     "lint": "eslint .",
     "format": "prettier --write .",
     "typecheck": "tsc --noEmit",
@@ -30,13 +33,19 @@
   },
   "dependencies": {
     "dotenv": "^16.4.7",
-    "hono": "^4.6.15"
+    "drizzle-orm": "^0.38.3",
+    "drizzle-zod": "^0.6.1",
+    "hono": "^4.6.15",
+    "pg": "^8.13.1",
+    "zod": "^3.24.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",
     "@ianvs/prettier-plugin-sort-imports": "^4.4.0",
+    "@types/pg": "^8.11.10",
     "autoprefixer": "^10.4.20",
     "bun-types": "^1.1.42",
+    "drizzle-kit": "^0.30.1",
     "eslint": "^9.17.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",

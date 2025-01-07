@@ -1,13 +1,16 @@
 import type { AppConfig } from '#type/config.type'
 import type { RouterInstance } from '#type/core.type'
+import type { Database } from '#type/database.types'
 
 import { Hono } from 'hono'
 import { serveStatic } from 'hono/bun'
 import { logger } from 'hono/logger'
-import { loadRoutes } from 'internal/core/routes.js'
-import { ViewEngine } from 'internal/core/views.js'
+import { loadRoutes } from 'internal/core/routes.ts'
+import { ViewEngine } from 'internal/core/views.ts'
 
 import { loadConfig } from '#config/config'
+
+import { database } from '#database/client'
 
 /**
  * The `App` class represents the core application, setting up the router, middleware,
@@ -17,6 +20,7 @@ class App {
   #config: AppConfig
   router: RouterInstance
   view: ViewEngine
+  db: Database
 
   constructor() {
     this.router = new Hono()
@@ -54,6 +58,11 @@ class App {
      */
     this.#config = config
     this.view = new ViewEngine(this.#config.views)
+
+    /**
+     * Initialize the database client instance.
+     */
+    this.db = database
   }
 
   /**
