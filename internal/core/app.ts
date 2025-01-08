@@ -20,7 +20,7 @@ class App {
   #config: AppConfig
   router: RouterInstance
   view: ViewEngine
-  db: Database
+  database: Database
 
   constructor() {
     this.router = new Hono()
@@ -62,7 +62,7 @@ class App {
     /**
      * Initialize the database client instance.
      */
-    this.db = database
+    this.database = database
   }
 
   /**
