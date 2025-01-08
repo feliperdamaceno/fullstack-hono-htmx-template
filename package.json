@@ -19,9 +19,9 @@
   },
   "scripts": {
     "start": "NODE_ENV=production bun cmd/main.ts",
-    "build": "npm run build:static",
+    "build": "bun run build:static",
     "build:static": "vite build",
-    "dev": "npm run dev:static & npm run dev:server",
+    "dev": "bun run dev:static & bun run dev:server",
     "dev:server": "bun --watch cmd/main.ts",
     "dev:static": "vite build --watch",
     "db:generate": "drizzle-kit generate",
