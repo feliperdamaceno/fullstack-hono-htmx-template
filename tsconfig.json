@@ -34,6 +34,7 @@
       "#helper/*": ["./internal/helper/*.ts"],
       "#middleware/*": ["./internal/middleware/*.ts"],
       "#model/*": ["./internal/model/*.ts"],
+      "#repository/*": ["./internal/repository/*.ts"],
       "#type/*": ["internal/type/*.ts"],
       "#validator/*": ["./internal/validator/*.ts"],
       "#view/*": ["./internal/view/*.ts"]
