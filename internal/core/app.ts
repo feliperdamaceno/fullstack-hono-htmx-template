@@ -10,7 +10,7 @@ import { ViewEngine } from 'internal/core/views.ts'
 
 import { loadConfig } from '#config/config'
 
-import { database } from '#database/client'
+import { database } from '#database/driver'
 
 /**
  * The `App` class represents the core application, setting up the router, middleware,

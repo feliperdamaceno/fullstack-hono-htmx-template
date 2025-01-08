@@ -1,3 +1,3 @@
-import { database } from '#database/client'
+import { database } from '#database/driver'
 
 export type Database = typeof database
