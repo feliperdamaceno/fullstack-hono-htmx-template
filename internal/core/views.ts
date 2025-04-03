@@ -34,6 +34,7 @@ export class ViewEngine {
    * @throws An error if the view cannot be loaded or rendered successfully.
    */
   async render(view: string, data: ViewData = {}) {
+    // TODO: sanitize view string by splitting by . if exists and taking the first part only.
     try {
       const viewPath = path.resolve(this.#views, `${view}.ts`)
       const { default: component } = (await import(viewPath)) as {

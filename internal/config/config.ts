@@ -2,7 +2,7 @@ import type { AppConfig } from '#type/config.type'
 
 import dotenv from 'dotenv'
 
-export function loadConfig(): [AppConfig, null] | [null, Error] {
+export function loadConfig(): [Readonly<AppConfig>, null] | [null, Error] {
   try {
     dotenv.config()
 
@@ -22,6 +22,8 @@ export function loadConfig(): [AppConfig, null] | [null, Error] {
   }
 }
 
+// TODO: Convert this to Bun!
+// Chage to import.meta instead.
 function getEnv(key: string, defaultValue: string) {
   const value = process.env[key]
 
