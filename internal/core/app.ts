@@ -94,7 +94,7 @@ class App {
    * Called on termination signals (`SIGINT`, `SIGTERM`).
    */
   #stop() {
-    // Perform cleanup tasks here before termination
+    /* Perform cleanup tasks here before termination */
   }
 }
 

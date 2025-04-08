@@ -2,7 +2,7 @@ import type { ViewComponent, ViewProps } from '#type/view.type'
 
 import { html } from 'hono/html'
 
-import RootLayout from '#view/layouts/root'
+import BaseLayout from '#view/layouts/base'
 
 interface Props extends ViewProps {
   data: {
@@ -11,7 +11,7 @@ interface Props extends ViewProps {
 }
 
 const Home: ViewComponent<Props> = ({ data: { title } }) => {
-  return RootLayout({
+  return BaseLayout({
     head: html`<title>${title}</title>`,
     body: html`
       <section>

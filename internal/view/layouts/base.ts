@@ -7,15 +7,17 @@ interface Props extends ViewProps {
   body: View
 }
 
-const RootLayout: ViewComponent<Props> = ({ head, body }) => {
+const BaseLayout: ViewComponent<Props> = ({ head, body }) => {
   return html`
     <!DOCTYPE html>
     <html lang="en">
       <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" href="/static/assets/main.css" />
-        <script src="/static/assets/bundle.js" defer></script>
+        <script src="https://unpkg.com/htmx.org@2.0.4" defer></script>
+        <script src="/static/dist/bundle.js" defer></script>
+        <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+        <link rel="stylesheet" href="/static/dist/main.css" />
         ${head}
       </head>
 
@@ -26,4 +28,4 @@ const RootLayout: ViewComponent<Props> = ({ head, body }) => {
   `
 }
 
-export default RootLayout
+export default BaseLayout

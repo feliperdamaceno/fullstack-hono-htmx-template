@@ -3,7 +3,7 @@ import { defineConfig } from 'vite'
 export default defineConfig({
   root: './',
   build: {
-    outDir: './internal/view/static/assets',
+    outDir: './internal/view/static/dist',
     rollupOptions: {
       input: [
         './internal/view/scripts/main.ts',

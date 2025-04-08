@@ -33,7 +33,6 @@
     "prepare": "husky install"
   },
   "dependencies": {
-    "dotenv": "^16.4.7",
     "drizzle-orm": "^0.38.3",
     "drizzle-zod": "^0.6.1",
     "hono": "^4.6.15",
@@ -51,7 +50,6 @@
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
     "globals": "^15.14.0",
-    "htmx.org": "2.0.4",
     "husky": "^8.0.0",
     "lint-staged": "^15.3.0",
     "postcss": "^8.4.49",
