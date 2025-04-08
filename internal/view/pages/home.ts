@@ -7,15 +7,16 @@ import BaseLayout from '#view/layouts/base'
 interface Props extends ViewProps {
   data: {
     title: string
+    name?: string
   }
 }
 
-const Home: ViewComponent<Props> = ({ data: { title } }) => {
+const Home: ViewComponent<Props> = ({ data: { title, name } }) => {
   return BaseLayout({
     head: html`<title>${title}</title>`,
     body: html`
-      <section>
-        <h1>${title}</h1>
+      <section class="grid min-h-screen place-items-center">
+        <h1 class="text-xl capitalize">Hello, ${name || 'guest'}!</h1>
       </section>
     `
   })

@@ -1,11 +1,23 @@
 import { Hono } from 'hono'
 
 import { app } from '#core/app'
+import { database } from '#database/driver'
+import { User } from '#model/user.model'
 
 const router = new Hono()
 
 router.get('/', async (ctx) => {
-  const view = await app.view.render('home', { title: 'Homepage' })
+  const user = await database
+    .select({
+      name: User.name
+    })
+    .from(User)
+
+  const view = await app.view.render('home', {
+    title: 'Welcome',
+    name: user[0]?.name || ''
+  })
+
   return ctx.html(view)
 })
 

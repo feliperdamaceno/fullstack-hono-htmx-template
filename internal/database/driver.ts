@@ -3,7 +3,9 @@ import { Pool } from 'pg'
 
 import * as schema from '#database/schema'
 
-const client = new Pool()
+const client = new Pool({
+  connectionString: process.env.DATABASE_URL!
+})
 
 export const database = drizzle({
   client,
