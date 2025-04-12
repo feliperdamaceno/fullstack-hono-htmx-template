@@ -22,7 +22,7 @@
     "build": "bun run build:static",
     "build:static": "vite build",
     "dev": "bun run dev:static & bun run dev:server",
-    "dev:server": "bun --watch cmd/main.ts",
+    "dev:server": "bun --hot cmd/main.ts",
     "dev:static": "vite build --watch",
     "db:studio": "drizzle-kit studio",
     "db:generate": "drizzle-kit generate",

@@ -1,10 +1,12 @@
 import type { AppConfig } from '#type/config.type'
 
+import { env } from '#validator/env'
+
 export function loadConfig(): [Readonly<AppConfig>, null] | [null, Error] {
   try {
     const config: Readonly<AppConfig> = {
-      hostname: getEnv('HOST', 'localhost'),
-      port: Number.parseInt(getEnv('PORT', '8000')),
+      hostname: env.HOST,
+      port: env.PORT,
       views: '/internal/view/pages'
     } as const
 
@@ -16,14 +18,4 @@ export function loadConfig(): [Readonly<AppConfig>, null] | [null, Error] {
 
     throw err
   }
-}
-
-function getEnv(key: string, defaultValue: string) {
-  const value = process.env[key]
-
-  if (value === undefined) {
-    return defaultValue
-  }
-
-  return value
 }
