@@ -6,7 +6,6 @@
   "type": "module",
   "imports": {
     "#core/*": "./internal/core/*.ts",
-    "#config/*": "./internal/config/*.ts",
     "#database/*": "./internal/database/*.ts",
     "#handler/*": "./internal/handler/*.ts",
     "#helper/*": "./internal/helper/*.ts",
