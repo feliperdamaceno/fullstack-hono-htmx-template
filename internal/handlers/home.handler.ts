@@ -1,8 +1,8 @@
 import { Hono } from 'hono'
+import { User } from 'internal/models/user.model.ts'
 
 import { app } from '#core/app'
 import { database } from '#database/driver'
-import { User } from '#model/user.model'
 
 const router = new Hono()
 

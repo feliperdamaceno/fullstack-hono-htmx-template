@@ -7,14 +7,15 @@
   "imports": {
     "#core/*": "./internal/core/*.ts",
     "#database/*": "./internal/database/*.ts",
-    "#handler/*": "./internal/handler/*.ts",
-    "#helper/*": "./internal/helper/*.ts",
+    "#exceptions/*": "./internal/exceptions/*.ts",
+    "#handlers/*": "./internal/handlers/*.ts",
+    "#helpers/*": "./internal/helpers/*.ts",
     "#middleware/*": "./internal/middleware/*.ts",
-    "#model/*": "./internal/model/*.ts",
-    "#repository/*": "./internal/repository/*.ts",
-    "#type/*": "./internal/types/*.ts",
-    "#validator/*": "./internal/validator/*.ts",
-    "#view/*": "./internal/view/*.ts"
+    "#models/*": "./internal/models/*.ts",
+    "#repositories/*": "./internal/repositories/*.ts",
+    "#types/*": "./internal/types/*.ts",
+    "#validators/*": "./internal/validators/*.ts",
+    "#views/*": "./internal/views/*.ts"
   },
   "scripts": {
     "start": "NODE_ENV=production bun cmd/main.ts",
@@ -73,6 +74,6 @@
       "prettier --write",
       "eslint --fix"
     ],
-    "!internal/view/static/*.*": []
+    "!web/static/*.*": []
   }
 }

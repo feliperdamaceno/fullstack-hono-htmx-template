@@ -1,8 +1,8 @@
-import type { ViewComponent, ViewProps } from '#type/view.type'
+import type { ViewComponent, ViewProps } from '#types/view.types'
 
 import { html } from 'hono/html'
 
-import BaseLayout from '#view/layouts/base'
+import BaseLayout from '#views/layouts/base'
 
 interface Props extends ViewProps {
   data: {

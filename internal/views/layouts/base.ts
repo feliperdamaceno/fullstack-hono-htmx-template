@@ -1,4 +1,4 @@
-import type { View, ViewComponent, ViewProps } from '#type/view.type'
+import type { View, ViewComponent, ViewProps } from '#types/view.types'
 
 import { html } from 'hono/html'
 
@@ -14,10 +14,10 @@ const BaseLayout: ViewComponent<Props> = ({ head, body }) => {
       <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <script src="https://unpkg.com/htmx.org@2.0.4" defer></script>
-        <script src="/static/dist/bundle.js" defer></script>
         <link rel="icon" href="/favicon.ico" type="image/x-icon" />
-        <link rel="stylesheet" href="/static/dist/main.css" />
+        <link rel="stylesheet" href="/static/main.css" />
+        <script src="https://unpkg.com/htmx.org@2.0.4" defer></script>
+        <script src="/static/bundle.js" defer></script>
         ${head}
       </head>
 

@@ -1,5 +1,5 @@
-import type { HttpMethods } from '#type/http.type'
-import type { env } from '#validator/env'
+import type { HttpMethods } from '#types/http.types'
+import type { env } from 'internal/validators/env.ts'
 
 export type AppConfig = {
   hostname: string

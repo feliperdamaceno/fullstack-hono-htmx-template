@@ -1,6 +1,6 @@
-import type { AppConfig, Origins } from '#type/config.type'
+import type { AppConfig, Origins } from '#types/config.types'
 
-import { env } from '#validator/env'
+import { env } from 'internal/validators/env.ts'
 
 /**
  * Loads and returns the application configuration.
@@ -47,7 +47,7 @@ export function loadConfig(): [Readonly<AppConfig>, null] | [null, Error] {
         'HX-Trigger-After-Settle',
         'HX-Trigger-After-Swap'
       ],
-      views: '/internal/view/pages'
+      views: '/internal/views/pages'
     } as const
 
     return [config, null]

@@ -28,9 +28,10 @@ export function loadMiddleware(app: AppInstance) {
   )
 
   /* Static Files */
-  app.router.use('/static/*', serveStatic({ root: './internal/view/' }))
+  app.router.use('/static/*', serveStatic({ root: './web/' }))
+  app.router.use('/assets/*', serveStatic({ root: './web/' }))
   app.router.use(
     '/favicon.ico',
-    serveStatic({ path: './internal/view/static/favicon.ico' })
+    serveStatic({ path: './web/assets/favicon.ico' })
   )
 }

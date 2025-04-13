@@ -1,6 +1,6 @@
-import type { AppConfig } from '#type/config.type'
-import type { RouterInstance } from '#type/core.type'
-import type { Database } from '#type/database.types'
+import type { AppConfig } from '#types/config.typess'
+import type { RouterInstance } from '#types/core.types'
+import type { Database } from '#types/database.types'
 
 import { Hono } from 'hono'
 import { loadMiddleware } from 'internal/core/middleware.ts'

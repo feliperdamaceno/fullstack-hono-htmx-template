@@ -1,4 +1,4 @@
-import type { ViewComponent, ViewData } from '#type/view.type'
+import type { ViewComponent, ViewData } from '#types/view.types'
 
 import path from 'path'
 

@@ -1,19 +1,15 @@
 import { defineConfig } from 'vite'
 
 export default defineConfig({
-  root: './',
+  root: './web',
   build: {
-    outDir: './internal/view/static/dist',
+    outDir: 'static',
     rollupOptions: {
-      input: [
-        './internal/view/scripts/main.ts',
-        './internal/view/styles/main.css'
-      ],
+      input: ['./web/scripts/main.ts', './web/styles/main.css'],
       output: {
         entryFileNames: 'bundle.js',
         assetFileNames: '[name].[ext]'
       }
-    },
-    assetsDir: ''
+    }
   }
 })
