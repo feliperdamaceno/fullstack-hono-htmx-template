@@ -1,4 +1,4 @@
-import type { AppConfig } from '#types/config.typess'
+import type { AppConfig } from '#types/config.types'
 import type { RouterInstance } from '#types/core.types'
 import type { Database } from '#types/database.types'
 

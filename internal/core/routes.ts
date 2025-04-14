@@ -1,6 +1,6 @@
 import type { AppInstance } from '#core/app'
 
-import homeHandler from 'internal/handlers/home.handler.ts'
+import { RootHandler } from 'internal/handlers/root.handler.ts'
 
 /**
  * Loads application routes into the provided app instance.
@@ -11,7 +11,7 @@ import homeHandler from 'internal/handlers/home.handler.ts'
  */
 export function loadRoutes(app: AppInstance) {
   /* View Routes */
-  app.router.route('/', homeHandler)
+  app.router.route('/', new RootHandler(app).router)
 
   /* API Routes */
   app.router.get('/api/healthcheck', (ctx) => {
