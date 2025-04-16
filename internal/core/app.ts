@@ -26,9 +26,9 @@ class App {
     /**
      * Load application configuration.
      */
-    const [config, err] = loadConfig()
-    if (err) {
-      console.error(err)
+    const [config, error] = loadConfig()
+    if (error) {
+      console.error(error)
       process.exit(1)
     }
     this.config = config

@@ -13,6 +13,7 @@
     "#middleware/*": "./internal/middleware/*.ts",
     "#models/*": "./internal/models/*.ts",
     "#repositories/*": "./internal/repositories/*.ts",
+    "#services/*": "./internal/services/*.ts",
     "#types/*": "./internal/types/*.ts",
     "#validators/*": "./internal/validators/*.ts",
     "#views/*": "./internal/views/*.ts"
@@ -37,12 +38,14 @@
     "drizzle-orm": "^0.38.3",
     "drizzle-zod": "^0.6.1",
     "hono": "^4.6.15",
+    "ms": "^2.1.3",
     "pg": "^8.13.1",
     "zod": "^3.24.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",
     "@ianvs/prettier-plugin-sort-imports": "^4.4.0",
+    "@types/ms": "^2.1.0",
     "@types/pg": "^8.11.10",
     "autoprefixer": "^10.4.20",
     "bun-types": "^1.1.45",

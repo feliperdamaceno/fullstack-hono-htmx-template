@@ -1,6 +1,16 @@
 import { HTTPException } from 'hono/http-exception'
 
 /**
+ * Custom error class for Bad Request (400) status.
+ * Indicates that the server could not understand the request due to invalid syntax.
+ */
+export class BadRequestError extends HTTPException {
+  constructor(message: string = 'Bad Request') {
+    super(400, { message })
+  }
+}
+
+/**
  * Custom error class for Unauthorized (401) status.
  * Indicates that the client must authenticate to get the requested response.
  */
@@ -51,22 +61,22 @@ export class NotAcceptableError extends HTTPException {
 }
 
 /**
- * Custom error class for Bad Request (400) status.
- * Indicates that the server could not understand the request due to invalid syntax.
- */
-export class BadRequestError extends HTTPException {
-  constructor(message: string = 'Bad Request') {
-    super(400, { message })
-  }
-}
-
-/**
  * Custom error class for Conflict (409) status.
  * Indicates that the request could not be processed because of a conflict in the request.
  */
 export class ConflictError extends HTTPException {
   constructor(message: string = 'Conflict') {
     super(409, { message })
+  }
+}
+
+/**
+ * Custom error class for Unprocessable Entity (422) status.
+ * Indicates that the request could not be processed due to semantic errors, like missing or invalid fields.
+ */
+export class UnprocessableEntityError extends HTTPException {
+  constructor(message: string = 'Unprocessable Entity') {
+    super(422, { message })
   }
 }
 

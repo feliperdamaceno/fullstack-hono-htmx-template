@@ -7,7 +7,7 @@ import path from 'path'
  * view components and passing the required data for rendering.
  */
 export class ViewEngine {
-  #views: string
+  private readonly views: string
 
   /**
    * Constructs an instance of the ViewEngine with the specified views directory.
@@ -16,7 +16,7 @@ export class ViewEngine {
    * @param dirPath - Relative path to the directory containing view files.
    */
   constructor(dirPath: string) {
-    this.#views = path.resolve(
+    this.views = path.resolve(
       path.dirname(''),
       dirPath.startsWith('/') ? dirPath.slice(1) : dirPath
     )
@@ -36,7 +36,7 @@ export class ViewEngine {
   async render(view: string, data: ViewData = {}) {
     try {
       const viewName = view.split('.')[0]
-      const viewPath = path.resolve(this.#views, `${viewName}.ts`)
+      const viewPath = path.resolve(this.views, `${viewName}.ts`)
       const { default: component } = (await import(viewPath)) as {
         default: ViewComponent
       }

@@ -1,8 +1,10 @@
+import type { UserInsert, UserSelect } from '#models/user.model'
 import type { Database } from '#types/database.types'
 
 import { eq } from 'drizzle-orm'
 
-import { User } from '#models/user.model'
+import { InternalServerError, NotFoundError } from '#exceptions/http'
+import { User, UserSelectSchema } from '#models/user.model'
 
 export class UserRepository {
   private readonly database: Database
@@ -11,14 +13,44 @@ export class UserRepository {
     this.database = database
   }
 
-  async getByName(name: string) {
-    const user = await this.database
-      .select({
-        name: User.name
-      })
+  async create(user: UserInsert): Promise<UserSelect> {
+    const [record] = await this.database.insert(User).values(user).returning()
+
+    const parsed = UserSelectSchema.safeParse(record)
+    if (!parsed.success || !parsed.data?.id) {
+      throw new InternalServerError(
+        'An unexpected error occurred while creating the user. Please try again later.'
+      )
+    }
+
+    return parsed.data
+  }
+
+  async getById(id: number): Promise<UserSelect> {
+    const [record] = await this.database
+      .select()
+      .from(User)
+      .where(eq(User.id, id))
+
+    const parsed = UserSelectSchema.safeParse(record)
+    if (!parsed.success || !parsed.data?.id) {
+      throw new NotFoundError(`User with id:"${id}" not found`)
+    }
+
+    return parsed.data
+  }
+
+  async getByName(name: string): Promise<UserSelect> {
+    const [record] = await this.database
+      .select()
       .from(User)
       .where(eq(User.name, name))
 
-    return user[0]
+    const parsed = UserSelectSchema.safeParse(record)
+    if (!parsed.success || !parsed.data?.id) {
+      throw new NotFoundError(`User with name:"${name}" not found`)
+    }
+
+    return parsed.data
   }
 }

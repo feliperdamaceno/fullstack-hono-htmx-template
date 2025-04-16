@@ -35,6 +35,7 @@
       "#middleware/*": ["./internal/middleware/*.ts"],
       "#models/*": ["internal/models/*.ts"],
       "#repositories/*": ["./internal/repositories/*.ts"],
+      "#services/*": ["./internal/services/*.ts"],
       "#types/*": ["internal/types/*.ts"],
       "#validators/*": ["internal/validators/*.ts"],
       "#views/*": ["./internal/views/*.ts"]
