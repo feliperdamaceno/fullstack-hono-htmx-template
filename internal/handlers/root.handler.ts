@@ -13,6 +13,7 @@ import {
   InternalServerError,
   NotFoundError
 } from '#exceptions/http'
+import { authenticate } from '#middleware/auth.middleware'
 import { env } from '#validators/env'
 
 export class RootHandler {
@@ -46,7 +47,7 @@ export class RootHandler {
         const body = await ctx.req.json()
         const user = await this.userService.create(body)
 
-        ctx.status(200)
+        ctx.status(201)
         return ctx.text(`Welcome ${user.email}!`)
       } catch (error) {
         if (error instanceof BadRequestError) throw error
@@ -97,6 +98,16 @@ export class RootHandler {
 
       ctx.status(200)
       return ctx.text('You have been logged out successfully.')
+    })
+
+    /**
+     * This is a test endpoint that shows how to handle JWT authentication.
+     */
+    this.router.get('/me', authenticate(), async (ctx) => {
+      const { email } = ctx.get('jwtPayload')
+
+      ctx.status(200)
+      return ctx.json(`Hello, ${email}`)
     })
   }
 }

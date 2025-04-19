@@ -1,6 +1,11 @@
 import type { AuthToken } from '#types/auth.types'
 import type { Hono } from 'hono'
 import type { JwtVariables } from 'hono/jwt'
-import type { BlankEnv } from 'hono/types'
+import type { BlankSchema } from 'hono/types'
 
-export type RouterInstance = Hono<BlankEnv, JwtVariables<AuthToken>, '/'>
+interface RouterEnv {
+  Bindings: undefined
+  Variables: JwtVariables<AuthToken>
+}
+
+export type RouterInstance = Hono<RouterEnv, BlankSchema, '/'>
