@@ -4,7 +4,7 @@ import type { UserRepository } from '#repositories/user.repository'
 
 import { BadRequestError, NotFoundError } from '#exceptions/http'
 import { UserInsertSchema } from '#models/user.model'
-import { PasswordSchema } from '#validators/password'
+import { PasswordSchema } from '#validators/user.schema'
 
 const BCRYPT_ALGORITHM_COST = 12 as const
 
@@ -26,9 +26,9 @@ export class UserService {
     }
 
     const userValidation = UserInsertSchema.safeParse(user)
-    if (!userValidation.success || !role) {
+    if (!userValidation.success) {
       throw new BadRequestError(
-        'Missing required fields or invalid role. Please ensure all necessary information is provided.'
+        'Please ensure all necessary information is provided.'
       )
     }
 
@@ -36,7 +36,7 @@ export class UserService {
     if (!passwordValidation.success) {
       const errors =
         passwordValidation.error.errors.map((e) => e.message).join(' ') ||
-        'Password does not meet the required strength criteria. Please ensure the password is strong enough.'
+        'Password does not meet the required strength criteria.'
       throw new BadRequestError(errors)
     }
 

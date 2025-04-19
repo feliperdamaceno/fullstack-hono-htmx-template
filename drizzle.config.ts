@@ -1,5 +1,6 @@
 import { defineConfig } from 'drizzle-kit'
-import { env } from 'internal/validators/env.ts'
+
+import { env } from '#validators/env'
 
 export default defineConfig({
   out: './internal/database/migrations',

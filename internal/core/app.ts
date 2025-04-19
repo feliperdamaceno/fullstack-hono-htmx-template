@@ -1,5 +1,4 @@
 import type { Bindings } from '#core/bindings'
-import type { Container } from '#core/container'
 import type { AppConfig } from '#types/config.types'
 import type { RouterInstance } from '#types/core.types'
 import type { Database } from '#types/database.types'
@@ -8,7 +7,7 @@ import { Hono } from 'hono'
 
 import { loadBindings } from '#core/bindings'
 import { loadConfig } from '#core/config'
-import { container } from '#core/container'
+import { Container } from '#core/container'
 import { loadMiddleware } from '#core/middleware'
 import { loadRoutes } from '#core/routes'
 import { ViewEngine } from '#core/views'
@@ -42,13 +41,13 @@ class App {
      * Initialize the database client, container and view engine.
      */
     this.database = database
-    this.container = container
+    this.container = new Container<Bindings>()
     this.view = new ViewEngine(this.config.views)
 
     /**
      * Register global bindings, middleware and routes.
      */
-    loadBindings(this, this.container)
+    loadBindings(this)
     loadMiddleware(this)
     loadRoutes(this)
   }

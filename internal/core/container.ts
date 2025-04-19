@@ -1,5 +1,4 @@
-import type { Bindings } from '#core/bindings'
-import type { Factory } from '#types/container.types'
+export type Factory<T> = () => T
 
 /**
  * A container for managing service instances and their dependencies.
@@ -41,5 +40,3 @@ export class Container<Bindings extends Record<keyof Bindings, unknown>> {
     return this.instances.get(key) as Bindings[K]
   }
 }
-
-export const container = new Container<Bindings>()

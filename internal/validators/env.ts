@@ -24,6 +24,7 @@ const schema = z.object({
     .url({ message: 'DATABASE_URL must be a valid URL' }),
   JWT_SECRET: z
     .string()
+    .trim()
     .min(32, { message: 'Secret must be at least 32 characters long' })
     .regex(/[A-Z]/, {
       message: 'Secret must contain at least one uppercase letter'
@@ -37,6 +38,18 @@ const schema = z.object({
     })
     .refine((value) => value.length <= 128, {
       message: 'Secret should not exceed 128 characters'
+    }),
+  JWT_COOKIE_NAME: z
+    .string()
+    .trim()
+    .min(1, { message: 'JWT_COOKIE_NAME is required' }),
+  JWT_EXPIRES_IN: z
+    .string()
+    .trim()
+    .min(1, { message: 'JWT_EXPIRES_IN is required' })
+    .regex(/^(\d+)([smhdwMy]{1})$/, {
+      message:
+        'AUTH_COOKIE_LIFETIME must be a valid duration (e.g., 30d, 1h, 12m)'
     }),
   NODE_ENV: z.enum(ENVIRONMENTS, {
     message: `NODE_ENV must be one of following options: ${ENVIRONMENTS.join(', ')}`

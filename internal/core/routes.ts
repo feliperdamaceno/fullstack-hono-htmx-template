@@ -10,7 +10,7 @@ import { RootHandler } from '#handlers/root.handler'
  * @param app - The app instance where the routes will be registered.
  */
 export function loadRoutes(app: AppInstance) {
-  /* View Routes */
+  /* App Routes */
   app.router.route('/', new RootHandler(app).router)
 
   /* API Routes */
