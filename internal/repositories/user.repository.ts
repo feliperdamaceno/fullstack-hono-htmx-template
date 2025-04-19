@@ -3,7 +3,7 @@ import type { Database } from '#types/database.types'
 
 import { eq } from 'drizzle-orm'
 
-import { InternalServerError, NotFoundError } from '#exceptions/http'
+import { InternalServerError } from '#exceptions/http'
 import { User, UserSelectSchema } from '#models/user.model'
 
 export class UserRepository {
@@ -26,31 +26,21 @@ export class UserRepository {
     return parsed.data
   }
 
-  async getById(id: number): Promise<UserSelect> {
-    const [record] = await this.database
+  async getById(id: number): Promise<UserSelect | undefined> {
+    const [user] = await this.database
       .select()
       .from(User)
       .where(eq(User.id, id))
 
-    const parsed = UserSelectSchema.safeParse(record)
-    if (!parsed.success || !parsed.data?.id) {
-      throw new NotFoundError(`User with id:"${id}" not found`)
-    }
-
-    return parsed.data
+    return user
   }
 
-  async getByName(name: string): Promise<UserSelect> {
-    const [record] = await this.database
+  async getByEmail(email: string): Promise<UserSelect | undefined> {
+    const [user] = await this.database
       .select()
       .from(User)
-      .where(eq(User.name, name))
+      .where(eq(User.email, email))
 
-    const parsed = UserSelectSchema.safeParse(record)
-    if (!parsed.success || !parsed.data?.id) {
-      throw new NotFoundError(`User with name:"${name}" not found`)
-    }
-
-    return parsed.data
+    return user
   }
 }

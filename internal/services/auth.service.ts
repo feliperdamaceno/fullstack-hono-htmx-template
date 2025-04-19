@@ -1,4 +1,3 @@
-import type { UserInsert } from '#models/user.model'
 import type { UserService } from '#services/user.service'
 import type { AuthToken } from '#types/auth.types'
 import type { Context } from 'hono'
@@ -17,25 +16,9 @@ export class AuthService {
     this.userService = userService
   }
 
-  async register(user: UserInsert) {
-    const hashedPassword = await this.hashPassword(user.password)
-
-    return await this.userService.create({
-      ...user,
-      password: hashedPassword
-    })
-  }
-
   async login() {}
 
   async logout() {}
-
-  private async hashPassword(password: string) {
-    return await Bun.password.hash(password, {
-      algorithm: 'bcrypt',
-      cost: 12
-    })
-  }
 
   private async encodeJwt(token: AuthToken) {
     return await sign(token, env.JWT_SECRET)

@@ -1,18 +1,22 @@
 import type { AppInstance } from '#core/app'
+import type { UserService } from '#services/user.service'
 import type { RouterInstance } from '#types/core.types'
 
 import { Hono } from 'hono'
 
-import { InternalServerError, NotFoundError } from '#exceptions/http'
-import { AuthService } from '#services/auth.service'
+import {
+  BadRequestError,
+  InternalServerError,
+  NotFoundError
+} from '#exceptions/http'
 
 export class RootHandler {
   public readonly router: RouterInstance
-  public readonly authService: AuthService
+  public readonly userService: UserService
 
   constructor(app: AppInstance) {
     this.router = new Hono()
-    this.authService = app.container.resolve('AuthService')
+    this.userService = app.container.resolve('UserService')
 
     this.router.get('/', async (ctx) => {
       try {
@@ -24,6 +28,8 @@ export class RootHandler {
         return ctx.html(view)
       } catch (error) {
         if (error instanceof NotFoundError) throw error
+
+        console.error(error)
         throw new InternalServerError()
       }
     })
@@ -31,10 +37,14 @@ export class RootHandler {
     this.router.post('/register', async (ctx) => {
       try {
         const body = await ctx.req.json()
-        const user = await this.authService.register(body)
+        const user = await this.userService.create(body)
         return ctx.json(user)
       } catch (error) {
+        if (error instanceof BadRequestError) throw error
         if (error instanceof NotFoundError) throw error
+        if (error instanceof InternalServerError) throw error
+
+        console.error(error)
         throw new InternalServerError()
       }
     })
