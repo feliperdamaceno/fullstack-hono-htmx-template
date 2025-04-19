@@ -1,6 +1,6 @@
 import type { AppConfig, Origins } from '#types/config.types'
 
-import { env } from 'internal/validators/env.ts'
+import { env } from '#validators/env'
 
 /**
  * Loads and returns the application configuration.

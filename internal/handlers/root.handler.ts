@@ -4,23 +4,15 @@ import type { RouterInstance } from '#types/core.types'
 import { Hono } from 'hono'
 
 import { InternalServerError, NotFoundError } from '#exceptions/http'
-import { RoleRepository } from '#repositories/role.repository'
-import { UserRepository } from '#repositories/user.repository'
 import { AuthService } from '#services/auth.service'
-import { UserService } from '#services/user.service'
 
 export class RootHandler {
   public readonly router: RouterInstance
-
   public readonly authService: AuthService
 
   constructor(app: AppInstance) {
     this.router = new Hono()
-
-    const userRepository = new UserRepository(app.database)
-    const roleRepository = new RoleRepository(app.database)
-    const userService = new UserService(userRepository, roleRepository)
-    this.authService = new AuthService(userService)
+    this.authService = app.container.resolve('AuthService')
 
     this.router.get('/', async (ctx) => {
       try {

@@ -6,12 +6,12 @@ import { BadRequestError } from '#exceptions/http'
 import { UserInsertSchema } from '#models/user.model'
 
 export class UserService {
-  private readonly userRepository: UserRepository
   private readonly roleRepository: RoleRepository
+  private readonly userRepository: UserRepository
 
-  constructor(userRepository: UserRepository, roleRepository: RoleRepository) {
-    this.userRepository = userRepository
+  constructor(roleRepository: RoleRepository, userRepository: UserRepository) {
     this.roleRepository = roleRepository
+    this.userRepository = userRepository
   }
 
   async create(user: UserInsert) {

@@ -1,6 +1,6 @@
 import type { AppInstance } from '#core/app'
 
-import { RootHandler } from 'internal/handlers/root.handler.ts'
+import { RootHandler } from '#handlers/root.handler'
 
 /**
  * Loads application routes into the provided app instance.

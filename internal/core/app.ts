@@ -1,13 +1,17 @@
+import type { Bindings } from '#core/bindings'
+import type { Container } from '#core/container'
 import type { AppConfig } from '#types/config.types'
 import type { RouterInstance } from '#types/core.types'
 import type { Database } from '#types/database.types'
 
 import { Hono } from 'hono'
-import { loadMiddleware } from 'internal/core/middleware.ts'
-import { loadRoutes } from 'internal/core/routes.ts'
-import { ViewEngine } from 'internal/core/views.ts'
 
+import { loadBindings } from '#core/bindings'
 import { loadConfig } from '#core/config'
+import { container } from '#core/container'
+import { loadMiddleware } from '#core/middleware'
+import { loadRoutes } from '#core/routes'
+import { ViewEngine } from '#core/views'
 import { database } from '#database/driver'
 
 /**
@@ -17,8 +21,9 @@ import { database } from '#database/driver'
 class App {
   config: AppConfig
   router: RouterInstance
-  view: ViewEngine
   database: Database
+  container: Container<Bindings>
+  view: ViewEngine
 
   constructor() {
     this.router = new Hono()
@@ -34,14 +39,16 @@ class App {
     this.config = config
 
     /**
-     * Initialize the view engine and database client.
+     * Initialize the database client, container and view engine.
      */
-    this.view = new ViewEngine(this.config.views)
     this.database = database
+    this.container = container
+    this.view = new ViewEngine(this.config.views)
 
     /**
-     * Register global middleware and routes.
+     * Register global bindings, middleware and routes.
      */
+    loadBindings(this, this.container)
     loadMiddleware(this)
     loadRoutes(this)
   }

@@ -1,6 +1,5 @@
-import { Role, User } from 'internal/models/user.model.ts'
-
 import { database } from '#database/driver'
+import { Role, User } from '#models/user.model'
 
 const ADMIN_ROLE_PK = 'admin' as const
 const USER_ROLE_PK = 'user' as const

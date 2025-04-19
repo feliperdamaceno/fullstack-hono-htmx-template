@@ -8,4 +8,4 @@
  * To add new entries, simply export them from the models directory.
  */
 
-export * from 'internal/models/user.model.ts'
+export * from '#models/user.model'
