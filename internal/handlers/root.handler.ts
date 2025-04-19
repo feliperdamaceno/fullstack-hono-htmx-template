@@ -1,4 +1,5 @@
 import type { AppInstance } from '#core/app'
+import type { UserRepository } from '#repositories/user.repository'
 import type { AuthService } from '#services/auth.service'
 import type { UserService } from '#services/user.service'
 import type { RouterInstance } from '#types/core.types'
@@ -18,19 +19,28 @@ import { env } from '#validators/env'
 
 export class RootHandler {
   public readonly router: RouterInstance
+  public readonly userRepository: UserRepository
   public readonly userService: UserService
   public readonly authService: AuthService
 
   constructor(app: AppInstance) {
     this.router = new Hono()
+    this.userRepository = app.container.resolve('UserRepository')
     this.userService = app.container.resolve('UserService')
     this.authService = app.container.resolve('AuthService')
 
-    this.router.get('/', async (ctx) => {
+    this.router.get('/', authenticate(), async (ctx) => {
       try {
+        const { email } = ctx.get('jwtPayload')
+
+        const user = await this.userRepository.getByEmail(email)
+        if (!user) {
+          throw new NotFoundError(`User "${email}" not found.`)
+        }
+
         const view = await app.view.render('home', {
           title: 'Home',
-          name: 'admin'
+          name: user?.name
         })
 
         return ctx.html(view)
@@ -57,6 +67,10 @@ export class RootHandler {
         console.error('Unexpected error in /register:', error)
         throw new InternalServerError()
       }
+    })
+
+    this.router.get('/login', async (ctx) => {
+      return ctx.text('login')
     })
 
     this.router.post('/login', async (ctx) => {
