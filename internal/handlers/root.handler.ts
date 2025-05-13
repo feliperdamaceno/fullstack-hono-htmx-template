@@ -1,13 +1,14 @@
 import type { AppInstance } from '#core/app'
+import type { TimeValue } from '#helpers/time.helper'
 import type { UserRepository } from '#repositories/user.repository'
 import type { AuthService } from '#services/auth.service'
 import type { UserService } from '#services/user.service'
 import type { RouterInstance } from '#types/core.types'
-import type { StringValue } from 'ms'
 
 import { Hono } from 'hono'
 import { setCookie } from 'hono/cookie'
-import ms from 'ms'
+
+import { ms } from '#helpers/time.helper'
 
 import {
   BadRequestError,
@@ -78,7 +79,7 @@ export class RootHandler {
         const { email, password } = await ctx.req.json()
         const token = await this.authService.login(email, password)
 
-        const expiresInMs = ms(env.JWT_EXPIRES_IN as StringValue)
+        const expiresInMs = ms(env.JWT_EXPIRES_IN as TimeValue)
         const expiresAt = new Date(Date.now() + expiresInMs)
 
         setCookie(ctx, env.JWT_COOKIE_NAME, token, {

@@ -1,15 +1,16 @@
+import type { TimeValue } from '#helpers/time.helper'
 import type { UserRepository } from '#repositories/user.repository'
 import type { AuthToken } from '#types/auth.types'
-import type { StringValue } from 'ms'
 
 import { sign } from 'hono/jwt'
-import ms from 'ms'
+
+import { ms } from '#helpers/time.helper'
 
 import { BadRequestError } from '#exceptions/http'
 import { env } from '#validators/env'
 import { EmailSchema, PasswordSchema } from '#validators/user.schema'
 
-const JWT_EXPIRES_IN = env.JWT_EXPIRES_IN as StringValue
+const JWT_EXPIRES_IN = env.JWT_EXPIRES_IN as TimeValue
 
 export class AuthService {
   private readonly userRepository: UserRepository
@@ -55,8 +56,8 @@ export class AuthService {
     return token
   }
 
-  private async verifyPassword(passsword: string, hash: string) {
-    return await Bun.password.verify(passsword, hash)
+  private async verifyPassword(password: string, hash: string) {
+    return await Bun.password.verify(password, hash)
   }
 
   private async encodeJwt(token: AuthToken) {
