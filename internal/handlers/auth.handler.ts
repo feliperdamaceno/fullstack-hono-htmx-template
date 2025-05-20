@@ -1,6 +1,5 @@
 import type { AppInstance } from '#core/app'
 import type { TimeValue } from '#helpers/time.helper'
-import type { UserRepository } from '#repositories/user.repository'
 import type { AuthService } from '#services/auth.service'
 import type { UserService } from '#services/user.service'
 import type { RouterInstance } from '#types/core.types'
@@ -19,13 +18,11 @@ import { env } from '#validators/env'
 
 export class AuthHandler {
   public readonly router: RouterInstance
-  public readonly userRepository: UserRepository
   public readonly userService: UserService
   public readonly authService: AuthService
 
   constructor(app: AppInstance) {
     this.router = new Hono()
-    this.userRepository = app.container.resolve('UserRepository')
     this.userService = app.container.resolve('UserService')
     this.authService = app.container.resolve('AuthService')
 
