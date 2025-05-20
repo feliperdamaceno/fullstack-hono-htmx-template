@@ -15,10 +15,9 @@ import {
   InternalServerError,
   NotFoundError
 } from '#exceptions/http'
-import { authenticate } from '#middleware/auth.middleware'
 import { env } from '#validators/env'
 
-export class RootHandler {
+export class AuthHandler {
   public readonly router: RouterInstance
   public readonly userRepository: UserRepository
   public readonly userService: UserService
@@ -29,29 +28,6 @@ export class RootHandler {
     this.userRepository = app.container.resolve('UserRepository')
     this.userService = app.container.resolve('UserService')
     this.authService = app.container.resolve('AuthService')
-
-    this.router.get('/', authenticate(), async (ctx) => {
-      try {
-        const { email } = ctx.get('jwtPayload')
-
-        const user = await this.userRepository.getByEmail(email)
-        if (!user) {
-          throw new NotFoundError(`User "${email}" not found.`)
-        }
-
-        const view = await app.view.render('home', {
-          title: 'Home',
-          name: user?.name
-        })
-
-        return ctx.html(view)
-      } catch (error) {
-        if (error instanceof NotFoundError) throw error
-
-        console.error('Unexpected error in /:', error)
-        throw new InternalServerError()
-      }
-    })
 
     this.router.post('/register', async (ctx) => {
       try {
@@ -113,16 +89,6 @@ export class RootHandler {
 
       ctx.status(200)
       return ctx.text('You have been logged out successfully.')
-    })
-
-    /**
-     * This is a test endpoint that shows how to handle JWT authentication.
-     */
-    this.router.get('/me', authenticate(), async (ctx) => {
-      const { email } = ctx.get('jwtPayload')
-
-      ctx.status(200)
-      return ctx.json(`Hello, ${email}`)
     })
   }
 }

@@ -15,9 +15,9 @@ const Home: ViewComponent<Props> = ({ data: { title, name } }) => {
   return BaseLayout({
     head: html`<title>${title}</title>`,
     body: html`
-      <section class="grid min-h-screen place-items-center">
+      <main class="grid min-h-screen place-items-center">
         <h1 class="text-xl capitalize">Hello, ${name || 'guest'}!</h1>
-      </section>
+      </main>
     `
   })
 }
