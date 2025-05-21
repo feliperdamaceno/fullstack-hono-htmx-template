@@ -21,7 +21,7 @@ const BaseLayout: ViewComponent<Props> = ({ head, body }) => {
         ${head}
       </head>
 
-      <body>
+      <body class="flex min-h-screen flex-col">
         ${body}
       </body>
     </html>

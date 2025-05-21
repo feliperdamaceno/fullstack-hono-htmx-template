@@ -26,13 +26,24 @@ export class AuthHandler {
     this.userService = app.container.resolve('UserService')
     this.authService = app.container.resolve('AuthService')
 
+    this.router.get('/register', async (ctx) => {
+      const view = await app.view.render('register')
+      return ctx.html(view)
+    })
+
     this.router.post('/register', async (ctx) => {
       try {
-        const body = await ctx.req.json()
-        const user = await this.userService.create(body)
+        const body = await ctx.req.parseBody()
 
-        ctx.status(201)
-        return ctx.text(`Welcome ${user.email}!`)
+        const user = await this.userService.create({
+          name: String(body.name),
+          email: String(body.email),
+          password: String(body.password),
+          role: String(body.role)
+        })
+
+        ctx.status(302)
+        return ctx.header('HX-Redirect', user ? '/login' : '/register')
       } catch (error) {
         if (error instanceof BadRequestError) throw error
         if (error instanceof NotFoundError) throw error
@@ -44,13 +55,18 @@ export class AuthHandler {
     })
 
     this.router.get('/login', async (ctx) => {
-      return ctx.text('login')
+      const view = await app.view.render('login')
+      return ctx.html(view)
     })
 
     this.router.post('/login', async (ctx) => {
       try {
-        const { email, password } = await ctx.req.json()
-        const token = await this.authService.login(email, password)
+        const body = await ctx.req.parseBody()
+
+        const token = await this.authService.login(
+          String(body.email),
+          String(body.password)
+        )
 
         const expiresInMs = ms(env.JWT_EXPIRES_IN as TimeValue)
         const expiresAt = new Date(Date.now() + expiresInMs)
@@ -64,8 +80,8 @@ export class AuthHandler {
           secure: env.NODE_ENV === 'production'
         })
 
-        ctx.status(200)
-        return ctx.text('Login successful.')
+        ctx.status(302)
+        return ctx.header('HX-Redirect', '/')
       } catch (error) {
         if (error instanceof BadRequestError) throw error
 
@@ -84,8 +100,8 @@ export class AuthHandler {
         secure: env.NODE_ENV === 'production'
       })
 
-      ctx.status(200)
-      return ctx.text('You have been logged out successfully.')
+      ctx.status(302)
+      return ctx.header('HX-Redirect', '/login')
     })
   }
 }
