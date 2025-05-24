@@ -2,6 +2,7 @@ import type { AppInstance } from '#core/app'
 
 import { serveStatic } from 'hono/bun'
 import { cors } from 'hono/cors'
+import { csrf } from 'hono/csrf'
 import { logger } from 'hono/logger'
 
 /**
@@ -24,6 +25,13 @@ export function loadMiddleware(app: AppInstance) {
       allowHeaders: app.config.allowHeaders,
       exposeHeaders: app.config.exposeHeaders,
       credentials: true
+    })
+  )
+
+  /* CSRF Protection */
+  app.router.use(
+    csrf({
+      origin: app.config.allowedOrigins
     })
   )
 

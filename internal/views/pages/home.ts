@@ -4,21 +4,20 @@ import { html } from 'hono/html'
 
 import BaseLayout from '#views/layouts/base'
 
-interface Props extends ViewProps {
-  data: {
-    title: string
+interface HomeProps extends ViewProps {
+  data?: {
     name?: string
   }
 }
 
-const Home: ViewComponent<Props> = ({ data: { title, name } }) => {
+const Home: ViewComponent<HomeProps> = ({ data }) => {
   return BaseLayout({
-    head: html`<title>${title}</title>`,
+    head: html`<title>Home</title>`,
     body: html`
       <main class="grid flex-1 place-items-center text-zinc-800">
         <div class="space-y-6 text-center">
           <h1 class="text-2xl font-medium capitalize">
-            Hello, ${name || 'guest'}!
+            Hello, ${data?.name || 'guest'}!
           </h1>
 
           <form hx-post="/logout" hx-swap="none">

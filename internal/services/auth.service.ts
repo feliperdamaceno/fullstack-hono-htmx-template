@@ -3,6 +3,7 @@ import type { UserRepository } from '#repositories/user.repository'
 import type { AuthToken } from '#types/auth.types'
 
 import { sign } from 'hono/jwt'
+import { z } from 'zod/v4'
 
 import { ms } from '#helpers/time.helper'
 
@@ -22,27 +23,30 @@ export class AuthService {
   async login(email: string, password: string) {
     const emailValidation = EmailSchema.safeParse(email)
     if (!emailValidation.success) {
-      throw new BadRequestError('Please provide a valid email address.')
+      const message = 'Please provide a valid email address.'
+      throw new BadRequestError(message, {
+        email: z.treeifyError(emailValidation.error).errors
+      })
     }
 
     const passwordValidation = PasswordSchema.safeParse(password)
     if (!passwordValidation.success) {
-      const errors =
-        passwordValidation.error.errors.map((e) => e.message).join(' ') ||
-        'Password does not meet the required strength criteria.'
-      throw new BadRequestError(errors)
+      const message = 'Password does not meet the required strength criteria.'
+      throw new BadRequestError(message, {
+        password: z.treeifyError(passwordValidation.error).errors
+      })
     }
 
     const user = await this.userRepository.getByEmail(email)
     if (!user) {
-      throw new BadRequestError(
-        `User with the email "${email}" has not been found.`
-      )
+      const message = `User with the email "${email}" has not been found.`
+      throw new BadRequestError(message, { email: [message] })
     }
 
     const isValidPassword = await this.verifyPassword(password, user.password)
     if (!isValidPassword) {
-      throw new BadRequestError('Incorrect password. Please try again.')
+      const message = 'Incorrect password. Please try again.'
+      throw new BadRequestError(message, { password: [message] })
     }
 
     const token = await this.encodeJwt({

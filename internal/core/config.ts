@@ -47,7 +47,7 @@ export function loadConfig(): [Readonly<AppConfig>, null] | [null, Error] {
         'HX-Trigger-After-Settle',
         'HX-Trigger-After-Swap'
       ],
-      views: '/internal/views/pages'
+      views: '/internal/views'
     } as const
 
     return [config, null]
@@ -58,7 +58,7 @@ export function loadConfig(): [Readonly<AppConfig>, null] | [null, Error] {
 }
 
 /**
- * Returns allowed CORS origins based on the current environment.
+ * Returns allowed origins based on the current environment.
  * Can be extended to include more endpoints as needed.
  */
 function allowedOrigins() {

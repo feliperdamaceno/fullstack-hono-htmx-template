@@ -27,7 +27,7 @@ export class AuthHandler {
     this.authService = app.container.resolve('AuthService')
 
     this.router.get('/register', async (ctx) => {
-      const view = await app.view.render('register')
+      const view = await app.view.render('pages/register')
       return ctx.html(view)
     })
 
@@ -42,11 +42,21 @@ export class AuthHandler {
           role: String(body.role)
         })
 
-        ctx.status(302)
-        return ctx.header('HX-Redirect', user ? '/login' : '/register')
+        ctx.header('HX-Redirect', user ? '/login' : '/register')
+        return ctx.body(null)
       } catch (error) {
-        if (error instanceof BadRequestError) throw error
-        if (error instanceof NotFoundError) throw error
+        if (error instanceof BadRequestError) {
+          const form = await app.view.render('components/forms/register-form', {
+            errors: error.errors
+          })
+          return ctx.html(form)
+        }
+
+        if (error instanceof NotFoundError) {
+          console.error('Unexpected error in /register:', error)
+          throw new InternalServerError()
+        }
+
         if (error instanceof InternalServerError) throw error
 
         console.error('Unexpected error in /register:', error)
@@ -55,7 +65,7 @@ export class AuthHandler {
     })
 
     this.router.get('/login', async (ctx) => {
-      const view = await app.view.render('login')
+      const view = await app.view.render('pages/login')
       return ctx.html(view)
     })
 
@@ -80,10 +90,17 @@ export class AuthHandler {
           secure: env.NODE_ENV === 'production'
         })
 
-        ctx.status(302)
-        return ctx.header('HX-Redirect', '/')
+        ctx.header('HX-Redirect', '/')
+        return ctx.body(null)
       } catch (error) {
-        if (error instanceof BadRequestError) throw error
+        if (error instanceof BadRequestError) {
+          const form = await app.view.render('components/forms/login-form', {
+            errors: error.errors
+          })
+          return ctx.html(form)
+        }
+
+        if (error instanceof InternalServerError) throw error
 
         console.error('Unexpected error in /login:', error)
         throw new InternalServerError()
@@ -100,8 +117,8 @@ export class AuthHandler {
         secure: env.NODE_ENV === 'production'
       })
 
-      ctx.status(302)
-      return ctx.header('HX-Redirect', '/login')
+      ctx.header('HX-Redirect', '/login')
+      return ctx.body(null)
     })
   }
 }

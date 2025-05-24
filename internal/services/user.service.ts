@@ -2,9 +2,14 @@ import type { UserInsert } from '#models/user.model'
 import type { RoleRepository } from '#repositories/role.repository'
 import type { UserRepository } from '#repositories/user.repository'
 
+import { z } from 'zod/v4'
+
 import { BadRequestError, NotFoundError } from '#exceptions/http'
-import { UserInsertSchema } from '#models/user.model'
-import { PasswordSchema } from '#validators/user.schema'
+import {
+  EmailSchema,
+  NameSchema,
+  PasswordSchema
+} from '#validators/user.schema'
 
 const BCRYPT_ALGORITHM_COST = 12 as const
 
@@ -20,31 +25,38 @@ export class UserService {
   async create(user: UserInsert) {
     const role = await this.roleRepository.getByName(user.role)
     if (!role) {
-      throw new NotFoundError(
-        `The role with name "${user.role}" does not exist or is not available.`
-      )
+      const message = `The role with name "${user.role}" does not exist or is not available.`
+      throw new NotFoundError(message)
     }
 
-    const userValidation = UserInsertSchema.safeParse(user)
-    if (!userValidation.success) {
-      throw new BadRequestError(
-        'Please ensure all necessary information is provided.'
-      )
+    const nameValidation = NameSchema.safeParse(user.name)
+    if (!nameValidation.success) {
+      const message = 'Please provide a valid user name.'
+      throw new BadRequestError(message, {
+        name: z.treeifyError(nameValidation.error).errors
+      })
+    }
+
+    const emailValidation = EmailSchema.safeParse(user.email)
+    if (!emailValidation.success) {
+      const message = 'Please provide a valid email address.'
+      throw new BadRequestError(message, {
+        email: z.treeifyError(emailValidation.error).errors
+      })
     }
 
     const passwordValidation = PasswordSchema.safeParse(user.password)
     if (!passwordValidation.success) {
-      const errors =
-        passwordValidation.error.errors.map((e) => e.message).join(' ') ||
-        'Password does not meet the required strength criteria.'
-      throw new BadRequestError(errors)
+      const message = 'Password does not meet the required strength criteria.'
+      throw new BadRequestError(message, {
+        password: z.treeifyError(passwordValidation.error).errors
+      })
     }
 
     const existingUser = await this.userRepository.getByEmail(user.email)
     if (existingUser) {
-      throw new BadRequestError(
-        `A user with the email "${user.email}" already exists.`
-      )
+      const message = `A user with the email "${user.email}" already exists.`
+      throw new BadRequestError(message, { email: [message] })
     }
 
     const hashedPassword = await this.hashPassword(user.password)

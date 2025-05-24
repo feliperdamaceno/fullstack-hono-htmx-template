@@ -8,3 +8,7 @@ export type HttpMethods =
   | 'OPTIONS'
   | 'TRACE'
   | 'CONNECT'
+
+export type ErrorDetails<
+  T extends Record<string, string[]> = Record<string, string[]>
+> = T

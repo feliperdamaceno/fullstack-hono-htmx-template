@@ -2,6 +2,8 @@ import type { ViewComponent, ViewData } from '#types/view.types'
 
 import path from 'path'
 
+import { InternalServerError } from '#exceptions/http'
+
 /**
  * ViewEngine class handles rendering of views by dynamically importing
  * view components and passing the required data for rendering.
@@ -43,7 +45,7 @@ export class ViewEngine {
       return component({ data })
     } catch (error) {
       console.error(`Error rendering view ${view}:`, error)
-      throw new Error(`Failed to render view: ${view}`)
+      throw new InternalServerError()
     }
   }
 }

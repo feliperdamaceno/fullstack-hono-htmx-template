@@ -24,8 +24,7 @@ export class HomeHandler {
           throw new NotFoundError(`User "${email}" not found.`)
         }
 
-        const view = await app.view.render('home', {
-          title: 'Home',
+        const view = await app.view.render('pages/home', {
           name: user?.name
         })
 
