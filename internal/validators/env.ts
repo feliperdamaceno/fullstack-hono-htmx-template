@@ -44,6 +44,14 @@ const schema = z.object({
       error:
         'AUTH_COOKIE_LIFETIME must be a valid duration (e.g., 30d, 1h, 12m)'
     }),
+  BCRYPT_ALGORITHM_COST: z.preprocess(
+    (value) => Number(value),
+    z
+      .number()
+      .int()
+      .min(4, { error: 'BCRYPT_ALGORITHM_COST must be at least 4' })
+      .max(31, { error: 'BCRYPT_ALGORITHM_COST must not exceed 31' })
+  ),
   NODE_ENV: z.enum(ENVIRONMENTS, {
     error: `NODE_ENV must be one of following options: ${ENVIRONMENTS.join(', ')}`
   })

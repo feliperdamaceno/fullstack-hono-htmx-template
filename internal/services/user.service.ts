@@ -5,13 +5,14 @@ import type { UserRepository } from '#repositories/user.repository'
 import { z } from 'zod/v4'
 
 import { BadRequestError, NotFoundError } from '#exceptions/http'
+import { env } from '#validators/env'
 import {
   EmailSchema,
   NameSchema,
   PasswordSchema
 } from '#validators/user.schema'
 
-const BCRYPT_ALGORITHM_COST = 12 as const
+const BCRYPT_ALGORITHM_COST = env.BCRYPT_ALGORITHM_COST
 
 export class UserService {
   private readonly roleRepository: RoleRepository
