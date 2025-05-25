@@ -54,7 +54,7 @@ const LoginForm: ViewComponent<LoginFormProps> = ({ data }) => {
         Don't have an account yet?
         <a
           href="/register"
-          class="font-semibold text-orange-500/90 outline-2 outline-offset-2 transition-colors hover:text-orange-600/90 focus-visible:outline-orange-500/90"
+          class="font-semibold text-orange-500/90 transition-colors hover:text-orange-600/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-500/90"
         >
           Register here
         </a>
