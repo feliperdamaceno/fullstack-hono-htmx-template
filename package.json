@@ -1,5 +1,5 @@
 {
-  "name": "hono-template",
+  "name": "fullstack-hono-htmx-template",
   "version": "1.0.0",
   "description": "",
   "main": "cmd/main.ts",
