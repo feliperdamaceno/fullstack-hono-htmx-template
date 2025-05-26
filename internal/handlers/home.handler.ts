@@ -9,7 +9,7 @@ import { authenticate } from '#middleware/auth.middleware'
 
 export class HomeHandler {
   public readonly router: RouterInstance
-  public readonly userRepository: UserRepository
+  private readonly userRepository: UserRepository
 
   constructor(app: AppInstance) {
     this.router = new Hono()

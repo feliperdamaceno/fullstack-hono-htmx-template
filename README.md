@@ -118,7 +118,7 @@ Your route becomes available automatically once the handler is registered.
    bun dev
    ```
 
-For more details, plese see the documentation in each file. The project is
+For more details, please see the documentation in each file. The project is
 structured to be readable, intuitive, and easy to extend.
 
 ## Useful Links

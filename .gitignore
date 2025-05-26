@@ -19,6 +19,3 @@ lerna-debug.log*
 
 # build files
 web/static
-
-# Misc.
-request.http

@@ -27,13 +27,13 @@ export class ViewEngine {
   /**
    * Renders a view by dynamically importing the view's component and passing the provided data.
    * The view is expected to be a TypeScript module exporting a default function component.
-   * If the view rendering fails, an error is logged and a new error is thrown.
+   * If the view rendering fails, an error is logged and a new InternalServerError is thrown.
    *
    * @param view - The name of the view to be rendered (without file extension).
    * @param data - Optional data to pass to the view component for rendering (default is an empty object).
    *
    * @returns The rendered result from the view component.
-   * @throws An error if the view cannot be loaded or rendered successfully.
+   * @throws An InternalServerError if the view cannot be loaded or rendered successfully.
    */
   async render(view: string, data: ViewData = {}) {
     try {

@@ -2,12 +2,12 @@ import type { View, ViewComponent, ViewProps } from '#types/view.types'
 
 import { html } from 'hono/html'
 
-interface Props extends ViewProps {
+interface BaseLayoutProps extends ViewProps {
   head: View
   body: View
 }
 
-const BaseLayout: ViewComponent<Props> = ({ head, body }) => {
+const BaseLayout: ViewComponent<BaseLayoutProps> = ({ head, body }) => {
   return html`
     <!DOCTYPE html>
     <html lang="en">

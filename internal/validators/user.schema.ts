@@ -3,7 +3,7 @@ import { z } from 'zod/v4'
 export const NameSchema = z
   .string()
   .min(2, { error: 'Name must be at least 2 characters long.' })
-  .max(255, { error: 'Name must be at most 255 characters.' })
+  .max(255, { error: 'Name must be at most 255 characters long.' })
   .regex(/^[a-zA-Z\s'-]+$/, {
     error: 'Name can only contain letters, spaces, apostrophes, and hyphens.'
   })

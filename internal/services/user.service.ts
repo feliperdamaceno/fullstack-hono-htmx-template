@@ -4,7 +4,11 @@ import type { UserRepository } from '#repositories/user.repository'
 
 import { z } from 'zod/v4'
 
-import { BadRequestError, NotFoundError } from '#exceptions/http'
+import {
+  BadRequestError,
+  NotFoundError,
+  UnprocessableEntityError
+} from '#exceptions/http'
 import { env } from '#validators/env'
 import {
   EmailSchema,
@@ -28,6 +32,12 @@ export class UserService {
     if (!role) {
       const message = `The role with name "${user.role}" does not exist or is not available.`
       throw new NotFoundError(message)
+    }
+
+    /* Adjust this value accordingly to match your main user role PK. */
+    if (role.name !== 'user') {
+      const message = `The role with name "${user.role}" is not valid.`
+      throw new UnprocessableEntityError(message)
     }
 
     const nameValidation = NameSchema.safeParse(user.name)

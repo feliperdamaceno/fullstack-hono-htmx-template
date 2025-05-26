@@ -41,8 +41,7 @@ const schema = z.object({
     .trim()
     .min(1, { error: 'JWT_EXPIRES_IN is required' })
     .regex(/^(\d+)([smhdwMy]{1})$/, {
-      error:
-        'AUTH_COOKIE_LIFETIME must be a valid duration (e.g., 30d, 1h, 12m)'
+      error: 'JWT_EXPIRES_IN must be a valid duration (e.g., 30d, 1h, 12m)'
     }),
   BCRYPT_ALGORITHM_COST: z.preprocess(
     (value) => Number(value),

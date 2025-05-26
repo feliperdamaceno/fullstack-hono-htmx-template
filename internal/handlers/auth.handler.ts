@@ -12,14 +12,15 @@ import { ms } from '#helpers/time.helper'
 import {
   BadRequestError,
   InternalServerError,
-  NotFoundError
+  NotFoundError,
+  UnprocessableEntityError
 } from '#exceptions/http'
 import { env } from '#validators/env'
 
 export class AuthHandler {
   public readonly router: RouterInstance
-  public readonly userService: UserService
-  public readonly authService: AuthService
+  private readonly userService: UserService
+  private readonly authService: AuthService
 
   constructor(app: AppInstance) {
     this.router = new Hono()
@@ -53,6 +54,11 @@ export class AuthHandler {
         }
 
         if (error instanceof NotFoundError) {
+          console.error('Unexpected error in /register:', error)
+          throw new InternalServerError()
+        }
+
+        if (error instanceof UnprocessableEntityError) {
           console.error('Unexpected error in /register:', error)
           throw new InternalServerError()
         }

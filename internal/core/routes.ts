@@ -11,6 +11,6 @@ import { HomeHandler } from '#handlers/home.handler'
  * @param app - The app instance where the routes will be registered.
  */
 export function loadRoutes(app: AppInstance) {
-  app.router.route('/', new HomeHandler(app).router)
   app.router.route('/', new AuthHandler(app).router)
+  app.router.route('/', new HomeHandler(app).router)
 }

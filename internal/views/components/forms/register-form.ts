@@ -25,6 +25,7 @@ const RegisterForm: ViewComponent<RegisterFormProps> = ({ data }) => {
       hx-target="this"
       hx-swap="outerHTML"
     >
+      <!-- Adjust this value accordingly to match your main user role PK. -->
       <input class="hidden" name="role" value="user" type="hidden" />
 
       <label class="grid gap-2">
